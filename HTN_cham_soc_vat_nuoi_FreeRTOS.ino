@@ -42,12 +42,12 @@ void setup() {
   delay(2000);
   display.clearDisplay();
 
-  xTaskCreate(watersensorTask, "watersensor Task", 1000, NULL, 1, NULL);   
-  xTaskCreate(lightsensorTask, "lightsensor Task", 1000, NULL, 1, NULL);  
+  xTaskCreate(watersensorTask, "watersensor Task", 1000, NULL, 3, NULL);   
+  xTaskCreate(lightsensorTask, "lightsensor Task", 1000, NULL, 2, NULL);  
   xTaskCreate(readDHTTask,"ReadDHTTask",2048,NULL,1,NULL);
 
 }
-
+// Hàm watersensorTask chứa nội dung của Task tương ứng
 void watersensorTask(void *pvParameters) {
   while(1) {
     int sensorValue = analogRead(analogPin_water);
@@ -68,6 +68,7 @@ void watersensorTask(void *pvParameters) {
   }
 } 
 
+// Hàm lightsensorTask chứa nội dung của Task tương ứng
 void lightsensorTask(void *pvParameters) {
   while(1){
     int sensorValue = analogRead(analogPin_light);
@@ -88,7 +89,7 @@ void lightsensorTask(void *pvParameters) {
   }
 }
 
-// Khai báo hàm task để đọc dữ liệu từ cảm biến DHT22
+// Hàm readDHTTask chứa nội dung của Task tương ứng
 void readDHTTask(void *pvParameters) 
 {
   (void) pvParameters;
